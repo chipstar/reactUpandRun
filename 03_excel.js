@@ -20,6 +20,8 @@ var Excel = React.createClass({
             data: this.props.initialData,
             sotrby: null,
             descending: false,
+            edit: null,
+            search: false,
         };
     },
 
@@ -55,7 +57,28 @@ var Excel = React.createClass({
         });
     },
 
-    render: function() {
+    _showEditor: function(e) {
+        this.setState({
+            edit: {
+                row: parseInt(e.target.dataset.row, 10),
+                cell: e.target.cellIndex,
+            }
+        });
+    },
+
+    _save: function(e) {
+        e.preventDefault();
+        var input = e.target.firstChild;
+        var data = this.state.data.slice();
+        data[this.state.edit.row][this.state.edit.cell] = input.value;
+        this.setState({
+            edit: null,
+            data: data,
+        })
+    },
+
+    // 表の描画処理
+    _renderTable: function() {
         return (
             React.DOM.table(null,
                 React.DOM.thead({onClick: this._sort},
@@ -68,20 +91,104 @@ var Excel = React.createClass({
                         }, this)
                     )
                 ),
-                React.DOM.tbody(null,
-                    this.state.data.map(function(row, idx) {
+                React.DOM.tbody({onDoubleClick: this._showEditor},
+                    this._renderSearch(),
+                    this.state.data.map(function(row, rowidx) {
                         return (
-                            React.DOM.tr({key: idx},
+                            React.DOM.tr({key: rowidx},
                                 row.map(function(cell, idx) {
-                                    return React.DOM.td({key: idx}, cell);
-                                })
+                                    var content = cell;
+
+                                    var edit = this.state.edit;
+                                    if (edit && edit.row === rowidx && edit.cell === idx) {
+                                        content = React.DOM.form({onSubmit: this._save},
+                                            React.DOM.input({
+                                                type: 'text',
+                                                defaultValue: content,
+                                            })
+                                        );
+                                    }
+
+                                    return React.DOM.td({
+                                        key: idx,
+                                        'data-row': rowidx
+                                    }, content);
+                                }, this)
                             )
                         );
-                    })
+                    }, this)
                 )
             )
         );
-    }
+    },
+
+    _preSearchData: null,
+
+    _search: function(e) {
+        var needle = e.target.value.toLowerCase();
+        if (!needle) {
+            this.setState({data: this._preSearchData});
+            return;
+        }
+        var idx = e.target.dataset.idx;
+        var searchdata = this._preSearchData.filter(function(row) {
+            return row[idx].toString().toLowerCase().indexOf(needle) > -1;
+        });
+        this.setState({data: searchdata});
+    },
+
+    _renderSearch: function() {
+        if(!this.state.search) {
+            return null;
+        };
+        return (
+            React.DOM.tr({onChange: this._search},
+                this.props.headers.map(function(_ignore, idx) {
+                    return React.DOM.td({key: idx},
+                        React.DOM.input({
+                            type: 'text',
+                            'data-idx': idx,
+                        })
+                    );
+                })
+            )
+        );
+    },
+
+    _toggleSearch: function() {
+        if (this.state.search) {
+            this.setState({
+                data: this._preSearchData,
+                search: false,
+            });
+            this._preSearchData = null;
+        } else {
+            this._preSearchData = this.state.data;
+            this.setState({
+                search: true,
+            })
+        }
+    },
+
+    // ツールバーの描画処理
+    _renderToolbar: function() {
+        return React.DOM.button(
+            {
+                onClick: this._toggleSearch,
+                className: 'toolbar',
+            }, '検索'
+        );
+
+    },
+
+    render: function() {
+        return(
+            React.DOM.div(null,
+                this._renderToolbar(),
+                this._renderTable()
+            )
+        );
+    },
 });
 
 
