@@ -203,7 +203,7 @@ var Excel = React.createClass({
             }, 'JSONで保存'),
             React.DOM.a({
                 onClick: this._download.bind(this, 'csv'),
-                herf: 'data.csv'
+                href: 'data.csv'
             }, 'CSVで保存')
         );
     },
