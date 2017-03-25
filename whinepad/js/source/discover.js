@@ -2,6 +2,9 @@
 
 import Button from './components/Button';
 import Logo from './components/Logo';
+import FormInput from './components/FormInput';
+import Rating from './components/Rating';
+import Suggest from './components/Suggest';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -24,6 +27,44 @@ ReactDOM.render(
         <div>クラス名が指定されたButton: 
             <Button className="custom">何もしません</Button>
         </div>
+
+        <h2>Suggest</h2>
+        <div>
+            <Suggest options={['eenie', 'meenie', 'miney', 'mo']} />
+        </div>
+
+        <h2>FormInput</h2>
+        <table><tbody>
+            <tr>
+                <td>単純な入力フィールド</td>
+                <td><FormInput /></td>
+            </tr>
+            <tr>
+                <td>デフォルト値</td>
+                <td><FormInput defaultValue="デフォルトです" /></td>
+            </tr>
+            <tr>
+                <td>年の入力</td>
+                <td><FormInput type="year" /></td>
+            </tr>
+            <tr>
+                <td>評価</td>
+                <td><FormInput type="rating" /></td>
+            </tr>
+            <tr>
+                <td>入力候補の表示</td>
+                <td><FormInput
+                        type="Suggest"
+                        option={['red', 'green', 'blue']}
+                        defaultValue="green" />
+                </td>
+            </tr>
+            <tr>
+                <td>単純なテキストエリア</td>
+                <td><FormInput type="text" /></td>
+            </tr>
+        </tbody></table>
+
         {/*その他のコンポーネントはここに追加されます*/}
     </div>,
     document.getElementById('pad')
