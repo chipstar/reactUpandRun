@@ -6,7 +6,8 @@ import FormInput from './components/FormInput';
 import Form from './components/Form';
 import Rating from './components/Rating';
 import Suggest from './components/Suggest';
-import Actions from './components/Actions'
+import Actions from './components/Actions';
+import Dialog from './components/Dialog';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -79,6 +80,21 @@ ReactDOM.render(
 
         <h2>操作</h2>
         <div><Actions onAction={type => alert(type)} /></div>
+
+        <h2>Dialog</h2>
+        <Dialog
+            header="単純な例"
+            onAction={type => alert(type)}>
+            こんにちは！
+        </Dialog>
+        <Dialog
+            header="キャンセルボタンなし、カスタムのボタン"
+            hasCancel={false}
+            confirmLabel="ラベル"
+            onAction={type => alert(type)}>
+            なんでも表示できます。例えば、
+            <Button>ボタン</Button>
+        </Dialog>
 
         {/*その他のコンポーネントはここに追加されます*/}
     </div>,
