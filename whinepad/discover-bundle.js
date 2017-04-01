@@ -864,6 +864,18 @@ _reactDom2.default.render(_react2.default.createElement(
         _react2.default.createElement(_Form2.default, {
             fields: [{ label: '評価', type: 'rating', id: 'rateme' }, { label: 'あいさつ', id: 'freetext' }],
             initialData: { rateme: 4, freetext: 'こんにちは' } })
+    ),
+    _react2.default.createElement(
+        'h2',
+        null,
+        '\u64CD\u4F5C'
+    ),
+    _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(Actions, { onAction: function onAction(type) {
+                return alert(type);
+            } })
     )
 ), document.getElementById('pad'));
 },{"./components/Button":2,"./components/Form":3,"./components/FormInput":4,"./components/Logo":5,"./components/Rating":6,"./components/Suggest":7,"react":185,"react-dom":34}],9:[function(require,module,exports){

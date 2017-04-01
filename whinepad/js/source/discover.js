@@ -76,6 +76,9 @@ ReactDOM.render(
                 initialData={ {rateme: 4, freetext: 'こんにちは'} } />
         </div>
 
+        <h2>操作</h2>
+        <div><Actions onAction={type => alert(type)} /></div>
+
         {/*その他のコンポーネントはここに追加されます*/}
     </div>,
     document.getElementById('pad')
