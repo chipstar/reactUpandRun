@@ -1,5 +1,9 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -34,8 +38,18 @@ var Actions = function Actions(props) {
                 tabIndex: "0",
                 className: "ActionsDelete",
                 title: "\u524A\u9664",
-                onClick: props.onAction.binde(null, 'delete') },
+                onClick: props.onAction.bind(null, 'delete') },
             "x"
         )
     );
 };
+
+Actions.PropTypes = {
+    onAction: _react.PropTypes.func
+};
+
+Actions.defaultProps = {
+    onAction: function onAction() {}
+};
+
+exports.default = Actions;

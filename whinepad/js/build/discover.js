@@ -24,6 +24,10 @@ var _Suggest = require('./components/Suggest');
 
 var _Suggest2 = _interopRequireDefault(_Suggest);
 
+var _Actions = require('./components/Actions');
+
+var _Actions2 = _interopRequireDefault(_Actions);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -219,7 +223,7 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(Actions, { onAction: function onAction(type) {
+        _react2.default.createElement(_Actions2.default, { onAction: function onAction(type) {
                 return alert(type);
             } })
     )

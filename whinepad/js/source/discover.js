@@ -6,6 +6,7 @@ import FormInput from './components/FormInput';
 import Form from './components/Form';
 import Rating from './components/Rating';
 import Suggest from './components/Suggest';
+import Actions from './components/Actions'
 import React from 'react';
 import ReactDOM from 'react-dom';
 

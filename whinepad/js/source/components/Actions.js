@@ -24,7 +24,7 @@ Actions.PropTypes = {
 };
 
 Actions.defaultProps = {
-    onAction: () => {};
+    onAction: () => {}
 };
 
 export default Actions
